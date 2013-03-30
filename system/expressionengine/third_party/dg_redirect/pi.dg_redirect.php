@@ -14,8 +14,8 @@ $plugin_info = array(
 	'pi_version'        => '1.0',
 	'pi_author'     	=> 'Dan Grebb',
 	'pi_author_url'     => 'http://dgrebb.com/',
-	'pi_description'    => 'Returns a YouTube ID from a variety of youtube share link types.',
-	'pi_usage' => Redirect::usage()
+	'pi_description'    => 'Redirects to a URL.',
+	'pi_usage' => Dg_redirect::usage()
 );
 
 class Dg_redirect {
@@ -37,8 +37,11 @@ class Dg_redirect {
 	}
 
 	function redirection($url){
-		header( "Location: " . $url );
-		exit;
+		$header = header( "Location: " . $url ); exit;
+		if(false !== $header){
+			return $header;
+		}
+		return false;
 	}
 
 	public function usage()
@@ -64,7 +67,7 @@ class Dg_redirect {
 
 	<?php
 		$buffer = ob_get_contents();
-		ob_end_clean()
+		ob_end_clean();
 		return $buffer;
 	}
 }
